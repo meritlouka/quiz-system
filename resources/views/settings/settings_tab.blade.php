@@ -1,7 +1,8 @@
-<div>
-      	<h3><a href="register_admin">Register an Admin</a></h1>
-		<h3><a href="2">Change Password</a></h1>
-		<h3><a href="index.html">Delete Your Account</a></h1>
-		<h3><a href="index.html">Reset All Tables</a></h1>
-		<h3><a href="settings">LogOut</a></h1>
-</div>
+<br/>
+<ul class="nav navbar-nav navbar-right">
+      	<li><a href="addAdmin">Register an Admin</a></li>
+		<li><a href="changePassword">Change Password</a></li>
+		<li><a href="deleteMyAccount">Delete Your Account</a></li>
+		<li><a href="resetAllTables">Reset All Tables</a></li>
+		<li><a href="logout">LogOut</a></li>
+</ul>

@@ -17,9 +17,25 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('admin.admin');
 });
+
 Route::get('/settings', function () {
     return view('admin.settings');
 });
-Route::get('/register_admin', function () {
+
+Route::get('/addAdmin', function () {
     return view('settings.register_admin');
 });
+Route::post('/addAdmin', 'AdminController@store');
+
+
+Route::get('/changePassword', function () {
+    return view('settings.change_password');
+});
+Route::post('/changePassword', 'AdminController@changePassword');
+
+Route::get('/deleteMyAccount',  'AdminController@deleteMyAccount');
+Route::get('/resetAllTables',  'AdminController@resetAllTables');
+
+
+Route::auth();
+Route::get('/home', 'HomeController@index');

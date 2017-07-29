@@ -1,7 +1,7 @@
-<div>
-      	<h3><a href="1">hellp ,username</a></h1>
-		<h3><a href="2">Quiz Homepage</a></h1>
-		<h3><a href="index.html">Manage Questions</a></h1>
-		<h3><a href="index.html">Quiz Management</a></h1>
-		<h3><a href="settings">Settings</a></h1>
-</div>
+<ul class="nav navbar-nav navbar-right">
+      	<li><a href="1">hellp ,username</a></li>
+		<li><a href="2">Quiz Homepage</a></li>
+		<li><a href="index.html">Manage Questions</a></li>
+		<li><a href="index.html">Quiz Management</a></li>
+		<li><a href="settings">Settings</a></li>
+</ul>
