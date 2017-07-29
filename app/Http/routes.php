@@ -20,3 +20,6 @@ Route::get('/admin', function () {
 Route::get('/settings', function () {
     return view('admin.settings');
 });
+Route::get('/register_admin', function () {
+    return view('settings.register_admin');
+});

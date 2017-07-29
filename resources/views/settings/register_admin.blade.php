@@ -5,6 +5,6 @@
 
 
 @section('content')
-    @include('admin.admin_tab')
-   
+    @include('settings.settings_tab')
+    In register
 @stop
