@@ -44,7 +44,7 @@ class AdminController extends Controller
                 'username' => $data['username'],
                 'email' => $data['email'],
                 'password' => sha1($data['password']),
-                'is_admin' => 1
+                'is_admin' => '1'
             ]);
 
             return response()
@@ -80,6 +80,15 @@ class AdminController extends Controller
     protected function deleteMyAccount(Request $request)
     { 
             $user = Auth::user()->delete();
+            if(User::get()->count() == 0){
+				User::create([
+				                'username' => 'admin',
+				                'email' => 'admin@admin.com',
+				                'password' => sha1(12345),
+				                'is_admin' => '1'
+				            ]);
+            }
+            
             return Redirect::to('logout');   
     }
     protected function resetAllTables(Request $request)
@@ -103,7 +112,7 @@ class AdminController extends Controller
                 'username' => 'admin',
                 'email' => 'admin@admin.com',
                 'password' => sha1(12345),
-                'is_admin' => 1
+                'is_admin' => '1'
             ]);
         DB::commit();
         return response()
