@@ -7,7 +7,7 @@
                   <li class="dropdown-submenu" >
 	                  	<a tabindex="-1" href="#" class="dropdown-toggle">Create a Question<span class="caret"></span></a>
 	                    <ul class="dropdown-menu">
-	                  	  <li><a tabindex="-1" href="questions/createTrueFalse">True/False</a></li>
+	                  	  <li><a tabindex="-1" href="createTrueFalse">True/False</a></li>
 	                  	  <li><a tabindex="-1" href="#">Multiple Choice</a></li>
 	                    </ul> 
                   </li>
