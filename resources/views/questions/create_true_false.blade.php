@@ -9,37 +9,39 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Add Question</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" name="questionform" method="POST" action="{{ url('/storeTrueFalse') }}">
+                    <form class="form-horizontal" role="form" name="questionform" method="POST" action="{{ url('questions/storeTrueFalse') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="question" class="col-md-4 control-label">Please Enter Your Question</label>
-
-                            <div class="col-md-6">
-                                <textarea name="comment" form="questionform" rows="4" cols="50">Enter text here...</textarea>
                         
-                                @if ($errors->has('question'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('question') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+                            <label for="password" class="col-md-4 control-label">Category</label>
 
                             <div class="col-md-6">
-                                <input type="checkbox" name="category" value="Bike"> I have a bike<br>
                                 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+								    <div class="input-group">
+								   
+								        <select class="form-control" name="category_id">
+									        @foreach($categories as $category)
+
+									            <option value="{{$category->id}}">{{$category->name}}</option>
+									        @endforeach
+									    </select>
+								    </div>
                             </div>
                         </div>
                         
+
+                        <fieldset>
+						<legend>Example 2</legend>
+						<p>Multi file mode example with syntax selection option. The highlight colors of the selected line is also shown.</p>
+						<textarea id="example_2" style="height: 250px; width: 100%;" name="question">
+						</textarea>
+						<p>Custom controls:<br />
+							<input type='button' onclick='open_file1()' value='open file 1' />
+							<input type='button' onclick='open_file2()' value='open file 2' />
+							<input type='button' onclick='close_file1()' value='close file 1' />
+						</p>
+					</fieldset>
                        
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="username" class="col-md-4 control-label">Answer1</label>
@@ -70,7 +72,7 @@
                                     </span>
                                 @endif
                             </div>
-                            <input type="radio" name="is_correct" value="true">Correct Answer<br>
+                            <input type="radio" name="is_correct" value="false">Correct Answer<br>
                         </div>
 
                         <div class="form-group">

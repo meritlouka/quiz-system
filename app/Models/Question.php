@@ -2,9 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 
-class Question 
+class Question extends Model
 {
+	/**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'question';
     /**
      * The attributes that are mass assignable.
      *

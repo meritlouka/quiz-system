@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
   // Route::resource('questions', 'QuestionController');
 
     Route::get('/questions',  'QuestionController@index');
-    Route::post('/questions',  'QuestionController@store');
+    Route::post('/questions/storeTrueFalse',  'QuestionController@storeTrueFalse');
     Route::get('/questions/createTrueFalse',  'QuestionController@createTrueFalse');
     Route::get('/questions/createMultiChoice',  'QuestionController@createMultiChoice');
     Route::get('/questions/{questions} ',  'QuestionController@show');

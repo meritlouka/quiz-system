@@ -7,6 +7,8 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Question;
+use App\Models\LkpCategory;
+
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -16,7 +18,7 @@ use Response;
 use Illuminate\Support\Facades\Input;
 use Auth;
 use DB;
-
+use Session;
 class questionController extends Controller {
 	/**
 	 * Display a listing of the resource.
@@ -38,9 +40,13 @@ class questionController extends Controller {
 	 */
 	public function createTrueFalse()
 	{
+		// get all the questions
+		$categories = LkpCategory::all();
 		// load the create form (app/views/questions/create_true_false.blade.php)
 		return response()
-                ->view('questions.create_true_false');
+                ->view('questions.create_true_false', compact('categories'))
+                //->with('categories', $categories)
+                ;
 	}
 	/**
 	 * Store a newly created resource in storage.
@@ -49,30 +55,33 @@ class questionController extends Controller {
 	 */
 	public function storeTrueFalse()
 	{
+
 		// validate
 		// read more on validation at http://laravel.com/docs/validation
-		$rules = array(
-			'name'       => 'required',
-			'email'      => 'required|email',
-			'question_level' => 'required|numeric'
-		);
-		$validator = Validator::make(Input::all(), $rules);
-		// process the login
-		if ($validator->fails()) {
-			return Redirect::to('questions/create')
-				->withErrors($validator)
-				->withInput(Input::except('password'));
-		} else {
+		// $rules = array(
+		// 	'name'       => 'required',
+		// 	'email'      => 'required|email',
+		// 	'question_level' => 'required|numeric'
+		// );
+		// $validator = Validator::make(Input::all(), $rules);
+		// // process the login
+		// if ($validator->fails()) {
+		// 	return Redirect::to('questions/create')
+		// 		->withErrors($validator)
+		// 		->withInput(Input::except('password'));
+		// } else {
 			// store
+		
 			$question = new Question;
-			$question->name       = Input::get('name');
-			$question->email      = Input::get('email');
-			$question->question_level = Input::get('question_level');
+			$question->question       = Input::get('question');
+			$question->question_type_id      = 1;
+			$question->category_id = Input::get('category_id');
+			$question->points = 10;
 			$question->save();
 			// redirect
 			Session::flash('message', 'Successfully created question!');
 			return Redirect::to('questions');
-		}
+		//}
 	}
 		/**
 	 * Show the form for creating a new resource.
