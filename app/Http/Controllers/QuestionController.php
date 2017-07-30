@@ -1,5 +1,23 @@
 <?php
-class questionController extends \BaseController {
+
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\View;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Question;
+use Validator;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Redirect;
+use Response;
+use Illuminate\Support\Facades\Input;
+use Auth;
+use DB;
+
+class questionController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -8,7 +26,7 @@ class questionController extends \BaseController {
 	public function index()
 	{
 		// get all the questions
-		$questions = question::all();
+		$questions = Question::all();
 		// load the view and pass the questions
 		return View::make('questions.index')
 			->with('questions', $questions);
@@ -18,17 +36,18 @@ class questionController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function createTrueFalse()
 	{
-		// load the create form (app/views/questions/create.blade.php)
-		return View::make('questions.create');
+		// load the create form (app/views/questions/create_true_false.blade.php)
+		return response()
+                ->view('questions.create_true_false');
 	}
 	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function storeTrueFalse()
 	{
 		// validate
 		// read more on validation at http://laravel.com/docs/validation
@@ -45,7 +64,49 @@ class questionController extends \BaseController {
 				->withInput(Input::except('password'));
 		} else {
 			// store
-			$question = new question;
+			$question = new Question;
+			$question->name       = Input::get('name');
+			$question->email      = Input::get('email');
+			$question->question_level = Input::get('question_level');
+			$question->save();
+			// redirect
+			Session::flash('message', 'Successfully created question!');
+			return Redirect::to('questions');
+		}
+	}
+		/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function createMultiChoice()
+	{
+		// load the create form (app/views/questions/create.blade.php)
+		return View::make('questions.create');
+	}
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function storeMultiChoice()
+	{
+		// validate
+		// read more on validation at http://laravel.com/docs/validation
+		$rules = array(
+			'name'       => 'required',
+			'email'      => 'required|email',
+			'question_level' => 'required|numeric'
+		);
+		$validator = Validator::make(Input::all(), $rules);
+		// process the login
+		if ($validator->fails()) {
+			return Redirect::to('questions/create')
+				->withErrors($validator)
+				->withInput(Input::except('password'));
+		} else {
+			// store
+			$question = new Question;
 			$question->name       = Input::get('name');
 			$question->email      = Input::get('email');
 			$question->question_level = Input::get('question_level');
@@ -64,7 +125,7 @@ class questionController extends \BaseController {
 	public function show($id)
 	{
 		// get the question
-		$question = question::find($id);
+		$question = Question::find($id);
 		// show the view and pass the question to it
 		return View::make('questions.show')
 			->with('question', $question);
@@ -78,7 +139,7 @@ class questionController extends \BaseController {
 	public function edit($id)
 	{
 		// get the question
-		$question = question::find($id);
+		$question = Question::find($id);
 		// show the edit form and pass the question
 		return View::make('questions.edit')
 			->with('question', $question);
@@ -106,7 +167,7 @@ class questionController extends \BaseController {
 				->withInput(Input::except('password'));
 		} else {
 			// store
-			$question = question::find($id);
+			$question = Question::find($id);
 			$question->name       = Input::get('name');
 			$question->email      = Input::get('email');
 			$question->question_level = Input::get('question_level');
@@ -125,7 +186,7 @@ class questionController extends \BaseController {
 	public function destroy($id)
 	{
 		// delete
-		$question = question::find($id);
+		$question = Question::find($id);
 		$question->delete();
 		// redirect
 		Session::flash('message', 'Successfully deleted the question!');

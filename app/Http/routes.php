@@ -34,7 +34,18 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/resetAllTables',  'AdminController@resetAllTables');
     
 
-    Route::resource('questions', 'QuestionController');
+  // Route::resource('questions', 'QuestionController');
+
+    Route::get('/questions',  'QuestionController@index');
+    Route::post('/questions',  'QuestionController@store');
+    Route::get('/questions/createTrueFalse',  'QuestionController@createTrueFalse');
+    Route::get('/questions/createMultiChoice',  'QuestionController@createMultiChoice');
+    Route::get('/questions/{questions} ',  'QuestionController@show');
+    Route::put('/questions/{questions}',  'QuestionController@update');
+    Route::delete('/questions/{questions}',  'QuestionController@destory');
+    Route::get('/questions/{questions}/edit',  'QuestionController@edit');
+  
+ 
 });
 	
 
