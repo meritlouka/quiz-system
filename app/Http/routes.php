@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth','is_admin']], function () {
     Route::post('/questions/{questions}/update',  'QuestionController@update');
     
     Route::get('/questions/{questions}/edit',  'QuestionController@edit');
-    Route::get('/deletequestions',  'QuestionController@destory');
+    Route::get('/delete',  'QuestionController@delete');
  
 });
 	

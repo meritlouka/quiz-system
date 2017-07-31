@@ -9,7 +9,22 @@
 @if (Session::has('message'))
 	<div class="alert alert-info">{{ Session::get('message') }}</div>
 @endif
- <p><label><input type="checkbox" id="checkAll"/> Check all</label>
+
+<script type="text/javascript">
+
+window.onload = function() { 
+    document.getElementById('checkAll').addEventListener('change', function() {
+         $("input:checkbox").prop('checked', $(this).prop("checked"));
+    });
+};
+
+
+   
+
+</script>
+
+<p><label><input type="checkbox" id="checkAll" /> Check all</label>
+
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>
@@ -21,7 +36,7 @@
 		</tr>
 	</thead>
 	<tbody>
-    <form  action="{{ url('deletequestions') }}">
+    <form  method="get" action="/delete">
 
     <button type="submit">DElete All Checked!</button>		
 	@foreach($questions as $key => $value)
@@ -37,7 +52,7 @@
 				<!-- delete the question (uses the destroy method DESTROY /questions/{id} -->
 				<!-- we will add this later since its a little more complicated than the first two buttons -->
 				 
-				<input type="checkbox" name="checkbox[]"  value="{{$value->id}}" /> 
+				<input type="checkbox" name="checkbox[]"  value="{{$value->id}}" />delete 
 
 
 				
@@ -51,9 +66,5 @@
 	</form>
 </table>
 
-<script type="text/javascript">
-  $("#checkAll").change(function () {
-    $("input:checkbox").prop('checked', $(this).prop("checked"));
-});
-</script>
+
 @endsection

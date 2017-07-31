@@ -216,11 +216,16 @@ class questionController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy()
+	public function delete()
 	{
 
-		// delete
-		Question::find(explode(',', $id))->delete();
+        foreach (Input::get('checkbox') as $key => $value) {
+        	# code...
+        	Question::find($value)->delete();
+        	Answer::where('question_id','=',$value)->delete();
+        }
+		
+		
 		
 		// redirect
 		Session::flash('message', 'Successfully deleted the question!');
