@@ -21,6 +21,12 @@ class Question extends Model
         'question', 'question_type_id', 'category_id','points'
     ];
 
-
+     /**
+     * Get the comments for the blog post.
+     */
+    public function answers()
+    {
+        return $this->hasMany('App\Models\Answer');
+    }
   
 }

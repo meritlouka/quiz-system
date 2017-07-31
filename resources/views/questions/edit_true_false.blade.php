@@ -9,7 +9,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Add Question</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" name="questionform" method="POST" action="{{ url('questions/storeTrueFalse') }}">
+                    <form class="form-horizontal" role="form" name="questionform" method="POST" action="{{ url('questions/'.$question->id.'/update') }}">
                         {{ csrf_field() }}
 
                          <input id="id" class="form-control" name="id" type="hidden" value="{{isset($question)?$question->id:''}}">
@@ -19,27 +19,27 @@
 
                             <div class="col-md-6">
                                 
-								    <div class="input-group">
-								   
-								        <select class="form-control" name="category_id">
-									        @foreach($categories as $category)
+                                    <div class="input-group">
+                                   
+                                        <select class="form-control" name="category_id">
+                                            @foreach($categories as $category)
 
-									            <option value="{{$category->id}}"  {{ isset($question) && $question->category_id == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
-									        @endforeach
-									    </select>
-								    </div>
+                                                <option value="{{$category->id}}"  {{ isset($question) && $question->category_id == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                             </div>
                         </div>
                         
 
                         <fieldset>
-						<legend>Example 2</legend>
-						<p>Multi file mode example with syntax selection option. The highlight colors of the selected line is also shown.</p>
-						<textarea id="example_2" style="height: 250px; width: 100%;" name="question">
-							<?php  //if(isset($question)){echo $question->question ; }  ?>
-						</textarea>
-						
-					</fieldset>
+                        <legend>Example 2</legend>
+                        <p>Multi file mode example with syntax selection option. The highlight colors of the selected line is also shown.</p>
+                        <textarea id="example_2" style="height: 250px; width: 100%;" name="question">
+                           
+                        </textarea>
+                        
+                    </fieldset>
                        
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="username" class="col-md-4 control-label">Answer1</label>
@@ -53,7 +53,7 @@
                                     </span>
                                 @endif
                             </div>
-                             <input type="radio" name="is_correct" value="true" checked="checked">Correct Answer
+                             <input type="radio" name="is_correct" value="true" {{ ($correctAnswer == 'True')? 'checked="checked"' : ''}} >Correct Answer
                         </div>
 
                          
@@ -70,7 +70,7 @@
                                     </span>
                                 @endif
                             </div>
-                            <input type="radio" name="is_correct" value="false">Correct Answer<br>
+                            <input type="radio" name="is_correct" value="false" {{ ($correctAnswer == 'False')? 'checked="checked"' : ''}} >Correct Answer<br>
                         </div>
 
                         <div class="form-group">
@@ -140,7 +140,7 @@
         
         function open_file2()
         {   
-        	var textBody = <?php echo (isset($question)&&isset($question->question))?"'".trim(str_replace( array("\r\n","\r","\n",'  '), '\n' ,addslashes($question->question)))."'"  : "'<html>'" ;?> ;
+            var textBody = <?php echo (isset($question)&&isset($question->question))?"'".trim(str_replace( array("\r\n","\r","\n",'  '), '\n' ,addslashes($question->question)))."'"  : "'<html>'" ;?> ;
             var new_file= {id: "Filename", text: textBody, syntax: 'html'};
             editAreaLoader.openFile('example_2', new_file);
         }

@@ -95,7 +95,8 @@ class AdminController extends Controller
     { 
         
         $tables = DB::select('SHOW TABLES');
-        $colName = 'Tables_in_' . env('DB_DATABASE');
+       
+        $colName = 'Tables_in_' . env('DB_DATABASE','quiz_system');
         DB::beginTransaction();
         //turn off referential integrity
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');

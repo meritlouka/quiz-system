@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/questions/createTrueFalse',  'QuestionController@createTrueFalse');
     Route::get('/questions/createMultiChoice',  'QuestionController@createMultiChoice');
     Route::get('/questions/{questions} ',  'QuestionController@show');
-    Route::put('/questions/{questions}',  'QuestionController@update');
+    Route::post('/questions/{questions}/update',  'QuestionController@update');
     Route::delete('/questions/{questions}',  'QuestionController@destory');
     Route::get('/questions/{questions}/edit',  'QuestionController@edit');
   
