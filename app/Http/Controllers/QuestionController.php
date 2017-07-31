@@ -3,17 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\View;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Question;
 use App\Models\Answer;
 use App\Models\LkpCategory;
-
 use Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Redirect;
 use Response;
 use Illuminate\Support\Facades\Input;
@@ -28,12 +24,13 @@ class questionController extends Controller {
 	 */
 	public function index()
 	{
-		// get all the questions
+
 		$questions = Question::all();
-		// load the view and pass the questions
+		
 		return View::make('questions.index')
 			->with('questions', $questions);
 	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -41,13 +38,11 @@ class questionController extends Controller {
 	 */
 	public function createTrueFalse()
 	{
-		// get all the questions
+
 		$categories = LkpCategory::all();
-		// load the create form (app/views/questions/create_true_false.blade.php)
+
 		return response()
-                ->view('questions.create_true_false', compact('categories'))
-                //->with('categories', $categories)
-                ;
+                ->view('questions.create_true_false', compact('categories'));
 	}
 	/**
 	 * Store a newly created resource in storage.
@@ -57,20 +52,17 @@ class questionController extends Controller {
 	public function storeTrueFalse()
 	{
 
-		// validate
-		// read more on validation at http://laravel.com/docs/validation
-		// $rules = array(
-		// 	'name'       => 'required',
-		// 	'email'      => 'required|email',
-		// 	'question_level' => 'required|numeric'
-		// );
-		// $validator = Validator::make(Input::all(), $rules);
-		// // process the login
-		// if ($validator->fails()) {
-		// 	return Redirect::to('questions/create')
-		// 		->withErrors($validator)
-		// 		->withInput(Input::except('password'));
-		// } else {
+		$rules = array(
+			'question'       => 'required',
+			
+		);
+		$validator = Validator::make(Input::all(), $rules);
+		// process the login
+		if ($validator->fails()) {
+			return Redirect::to('questions/createTrueFalse')
+				->withErrors($validator)
+				;
+		} else {
 			// store
 		
 			$question = new Question;
@@ -93,49 +85,16 @@ class questionController extends Controller {
 			// redirect
 			Session::flash('message', 'Successfully created question!');
 			return Redirect::to('questions');
-		//}
+		}
 	}
-		/**
+	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
 	 */
 	public function createMultiChoice()
 	{
-		// load the create form (app/views/questions/create.blade.php)
 		return View::make('questions.create');
-	}
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function storeMultiChoice()
-	{
-		// validate
-		// read more on validation at http://laravel.com/docs/validation
-		$rules = array(
-			'name'       => 'required',
-			'email'      => 'required|email',
-			'question_level' => 'required|numeric'
-		);
-		$validator = Validator::make(Input::all(), $rules);
-		// process the login
-		if ($validator->fails()) {
-			return Redirect::to('questions/create')
-				->withErrors($validator)
-				->withInput(Input::except('password'));
-		} else {
-			// store
-			$question = new Question;
-			$question->name       = Input::get('name');
-			$question->email      = Input::get('email');
-			$question->question_level = Input::get('question_level');
-			$question->save();
-			// redirect
-			Session::flash('message', 'Successfully created question!');
-			return Redirect::to('questions');
-		}
 	}
 	
 	/**
@@ -156,7 +115,8 @@ class questionController extends Controller {
 		if ($question->question_type_id == 1){
 			return View::make('questions.edit_true_false')
 				->with(['question'=> $question,'categories'=>$categories,'correctAnswer'=>$correctAnswer]);
-		}elseif($question->question_type_id == 2){
+		}
+		elseif($question->question_type_id == 2){
 			return View::make('questions.edit_multi_choice')
 				->with('question', $question);
 		}
@@ -171,21 +131,17 @@ class questionController extends Controller {
 	 */
 	public function update($id)
 	{
-		// validate
-		// read more on validation at http://laravel.com/docs/validation
-		// $rules = array(
-		// 	'name'       => 'required',
-		// 	'email'      => 'required|email',
-		// 	'question_level' => 'required|numeric'
-		// );
-		// $validator = Validator::make(Input::all(), $rules);
-		// // process the login
-		// if ($validator->fails()) {
-		// 	return Redirect::to('questions/' . $id . '/edit')
-		// 		->withErrors($validator)
-		// 		->withInput(Input::except('password'));
-		// } else {
-			// store
+		$rules = array(
+			'question'       => 'required',
+			
+		);
+		 $validator = Validator::make(Input::all(), $rules);
+
+		if ($validator->fails()) {
+			return Redirect::to('questions/' . $id . '/edit')
+				->withErrors($validator)
+				;
+		} else {
 
 			$question = Question::find($id);
 			$question->question       = Input::get('question');
@@ -208,7 +164,7 @@ class questionController extends Controller {
 			// redirect
 			Session::flash('message', 'Successfully updated question!');
 			return Redirect::to('questions');
-		//}
+		}
 	}
 	/**
 	 * Remove the specified resource from storage.

@@ -1,6 +1,6 @@
 <ul class="nav navbar-nav navbar-right">
-      	<li><a href="1">hello ,{{ Auth::user()->name }}</a></li>
-		<li><a href="2">Quiz Homepage</a></li>
+      	<li><a href="#">hello ,{{ Auth::user()->username }}</a></li>
+		<li><a href="#">Quiz Homepage</a></li>
 		<li class="dropdown">
                 <a  tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Manage Questions<span class="caret"></span></a>
                 <ul class="dropdown-menu multi-level">
@@ -13,8 +13,6 @@
                   </li>
                   <li><a tabindex="-1" href="/questions">View All Questions</a></li>
                   <li><a tabindex="-1" href="#">Edit a Question</a></li>
-                  <li><a tabindex="-1" href="#">Delete Some Questions</a></li>
-                  <li><a tabindex="-1" href="#">Delete All Questions</a></li>
                 </ul>
         </li>
 		<li><a href="#">Quiz Management</a></li>
