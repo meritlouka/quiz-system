@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth','is_admin']], function () {
     Route::get('/admin', function () {
     return view('admin.admin');
 	});
@@ -40,11 +40,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/questions/storeTrueFalse',  'QuestionController@storeTrueFalse');
     Route::get('/questions/createTrueFalse',  'QuestionController@createTrueFalse');
     Route::get('/questions/createMultiChoice',  'QuestionController@createMultiChoice');
-    Route::get('/questions/{questions} ',  'QuestionController@show');
+
     Route::post('/questions/{questions}/update',  'QuestionController@update');
-    Route::delete('/questions/{questions}',  'QuestionController@destory');
+    
     Route::get('/questions/{questions}/edit',  'QuestionController@edit');
-  
+    Route::get('/deletequestions',  'QuestionController@destory');
  
 });
 	

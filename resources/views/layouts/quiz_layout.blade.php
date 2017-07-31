@@ -110,9 +110,9 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/">Instruction Page</a></li>
-                    <li><a href="2">Quiz Page</a></li>
-                    <li><a href="index.html">Result Page</a></li>
+                    <li><a href="#">Instruction Page</a></li>
+                    <li><a href="#">Quiz Page</a></li>
+                    <li><a href="#">Result Page</a></li>
                     <li><a href="login">Login Page</a></li>
                     <!-- Authentication Links -->
                     @if (Auth::guest())

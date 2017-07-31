@@ -137,20 +137,7 @@ class questionController extends Controller {
 			return Redirect::to('questions');
 		}
 	}
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		// get the question
-		$question = Question::find($id);
-		// show the view and pass the question to it
-		return View::make('questions.show')
-			->with('question', $question);
-	}
+	
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -229,11 +216,12 @@ class questionController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
+
 		// delete
-		$question = Question::find($id);
-		$question->delete();
+		Question::find(explode(',', $id))->delete();
+		
 		// redirect
 		Session::flash('message', 'Successfully deleted the question!');
 		return Redirect::to('questions');
